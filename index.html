@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111719">
+  <meta name="description" content="A practical, private-by-default training planner that fits your schedule, equipment, and experience.">
+  <meta name="application-name" content="KARFIVO">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>KARFIVO — Strength in Motion</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <script src="data.js" defer></script>
+  <script src="storage.js" defer></script>
+  <script src="generator.js" defer></script>
+  <script src="analytics.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="icon-dumbbell" viewBox="0 0 24 24"><path d="M6 8v8m12-8v8M3 10v4m18-4v4M6 12h12"/></symbol>
+    <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18m-13 4h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 19V5m0 14h17M8 15l4-4 3 2 5-6"/><path d="M16 7h4v4"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z"/><path d="m19.4 15 .1.1a1.7 1.7 0 0 1-2.4 2.4l-.1-.1a1.7 1.7 0 0 0-2.9 1.2v.2a1.7 1.7 0 1 1-3.4 0v-.2A1.7 1.7 0 0 0 7.8 17l-.1.1a1.7 1.7 0 1 1-2.4-2.4l.1-.1a1.7 1.7 0 0 0-1.2-2.9H4a1.7 1.7 0 1 1 0-3.4h.2A1.7 1.7 0 0 0 5.4 5.8l-.1-.1a1.7 1.7 0 1 1 2.4-2.4l.1.1a1.7 1.7 0 0 0 2.9-1.2V2a1.7 1.7 0 1 1 3.4 0v.2a1.7 1.7 0 0 0 2.9 1.2l.1-.1a1.7 1.7 0 1 1 2.4 2.4l-.1.1a1.7 1.7 0 0 0 1.2 2.9h.2a1.7 1.7 0 1 1 0 3.4h-.2a1.7 1.7 0 0 0-1.2 2.9Z"/></symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20.8 14.3A8.7 8.7 0 0 1 9.7 3.2 8.8 8.8 0 1 0 20.8 14.3Z"/></symbol>
+    <symbol id="icon-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 21a7 7 0 0 1 14 0"/></symbol>
+    <symbol id="icon-flower" viewBox="0 0 24 24"><path d="M12 12c-4 0-5-2-5-4a3 3 0 0 1 5-2 3 3 0 0 1 5 2c0 2-1 4-5 4Zm0 0c0 4-2 5-4 5a3 3 0 0 1-2-5 3 3 0 0 1 0-5m6 5c4 0 5 2 5 4a3 3 0 0 1-5 2 3 3 0 0 1-5 0c0-2 1-4 5-4Z"/><circle cx="12" cy="12" r="1.4"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="m12 2 1.9 7.1L21 12l-7.1 1.9L12 21l-1.9-7.1L3 12l7.1-2.9L12 2Z"/><path d="m19 2 .6 2.4L22 5l-2.4.6L19 8l-.6-2.4L16 5l2.4-.6L19 2Z"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24"><path d="M20 4c-8 0-14 2-14 9a7 7 0 0 0 7 7c7 0 9-8 7-16Z"/><path d="M3 21c3-5 7-8 13-11"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 17 17 5M7 5h10v10"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.1-8.8 11.1-8.8 11.1S3.2 13.8 3.2 8.7A4.6 4.6 0 0 1 12 6.4a4.6 4.6 0 0 1 8.8 2.3Z"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m8 5 12 7-12 7z"/></symbol>
+    <symbol id="icon-trend" viewBox="0 0 24 24"><path d="M4 17 10 11l4 4 6-8"/><path d="M15 7h5v5"/></symbol>
+  </svg>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="KARFIVO home"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5h6v9l9-9h8L18 16l13 11h-9l-9-8v8H7z"/></svg></span><span>KARFIVO<small>STRENGTH IN MOTION</small></span></a>
+      <p class="side-label">YOUR TRAINING SPACE</p>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a class="nav-link active" href="#home" data-nav="home"><svg class="ui-icon"><use href="#icon-home"/></svg> Home</a>
+        <a class="nav-link" href="#workouts" data-nav="workouts"><svg class="ui-icon"><use href="#icon-dumbbell"/></svg> Workouts</a>
+        <a class="nav-link" href="#exercises" data-nav="exercises"><svg class="ui-icon"><use href="#icon-grid"/></svg> Exercises</a>
+        <a class="nav-link" href="#calendar" data-nav="calendar"><svg class="ui-icon"><use href="#icon-calendar"/></svg> Calendar</a>
+        <a class="nav-link" href="#progress" data-nav="progress"><svg class="ui-icon"><use href="#icon-chart"/></svg> Progress</a>
+        <a class="nav-link" href="#profile" data-nav="profile"><svg class="ui-icon"><use href="#icon-settings"/></svg> Profile</a>
+      </nav>
+      <div class="sidebar-note"><span class="note-icon"><svg class="ui-icon"><use href="#icon-flower"/></svg></span><p><strong>Progress, not pressure.</strong><br>Recovery and rest belong in your routine.</p></div>
+      <p class="sidebar-foot">Your training data stays on this device.</p>
+    </aside>
+
+    <div class="page">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 5h6v9l9-9h8L18 16l13 11h-9l-9-8v8H7z"/></svg></span><strong>KARFIVO</strong></div>
+        <p class="topbar-date" id="today-label"></p>
+        <div class="topbar-actions">
+          <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="ui-icon"><use href="#icon-moon"/></svg></button>
+          <a class="profile-link" href="#profile"><span class="avatar"><svg class="ui-icon"><use href="#icon-user"/></svg></span><span id="profile-name">My plan</span></a>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="page-view active" id="home" data-view="home">
+          <div class="welcome-row">
+            <div class="hero-orbit orbit-one"></div><div class="hero-orbit orbit-two"></div>
+            <div class="welcome-content"><p class="eyebrow">STRENGTH IN MOTION</p><h1 id="home-greeting">Move with purpose.<br><span>Grow at your pace.</span></h1><p class="welcome-copy">Training built around your time, your equipment, and what feels right for you.</p><div class="welcome-actions"><a class="button button-primary" href="#workouts">Start a workout <span><svg class="ui-icon"><use href="#icon-arrow"/></svg></span></a><a class="text-link" href="#exercises">Explore exercises</a></div></div>
+            <div class="welcome-art" aria-hidden="true"><span class="art-sun"></span><span class="art-leaf leaf-one"></span><span class="art-leaf leaf-two"></span><span class="art-seed"><svg class="ui-icon"><use href="#icon-spark"/></svg></span></div>
+          </div>
+          <div class="stat-grid" aria-label="Your real training summary">
+            <article class="stat-card"><span class="stat-icon green"><svg class="ui-icon"><use href="#icon-trend"/></svg></span><div><p class="stat-label">THIS WEEK</p><strong id="week-sessions">0 sessions</strong></div></article>
+            <article class="stat-card"><span class="stat-icon orange"><svg class="ui-icon"><use href="#icon-clock"/></svg></span><div><p class="stat-label">ACTIVE TIME</p><strong id="week-minutes">0 min</strong></div></article>
+            <article class="stat-card"><span class="stat-icon purple"><svg class="ui-icon"><use href="#icon-spark"/></svg></span><div><p class="stat-label">YOUR NEXT SESSION</p><strong id="next-workout">Set up your training profile</strong></div></article>
+          </div>
+          <div class="dashboard-grid">
+            <section class="panel">
+              <div class="section-heading"><div><p class="eyebrow">MADE FOR YOU</p><h2>Your next workout</h2></div><a class="small-link" href="#workouts">All workouts →</a></div>
+              <div id="home-recommendation"></div>
+            </section>
+            <section class="panel">
+              <div class="section-heading"><div><p class="eyebrow">YOUR WEEK</p><h2>At a glance</h2></div><a class="small-link" href="#calendar">Open calendar →</a></div>
+              <div class="mini-week" id="mini-week"></div>
+            </section>
+          </div>
+          <div class="dashboard-grid lower-grid">
+            <section class="panel"><div class="section-heading"><div><p class="eyebrow">RECENTLY</p><h2>Recent sessions</h2></div><a class="small-link" href="#progress">See progress →</a></div><div id="recent-sessions"></div></section>
+            <section class="panel">            <div class="section-heading"><div><p class="eyebrow">YOUR WINS</p><h2>Little milestones</h2></div><span class="heading-emoji"><svg class="ui-icon"><use href="#icon-spark"/></svg></span></div><div id="home-milestones"></div></section>
+          </div>
+          <section class="panel food-panel"><div class="section-heading"><div><p class="eyebrow">FROM YOUR KITCHEN</p><h2>Nigerian-inspired food ideas</h2></div><span class="heading-emoji"><svg class="ui-icon"><use href="#icon-leaf"/></svg></span></div><p class="section-copy">Select ingredients you have for meal ideas. These are not calculated nutrition totals.</p><label class="search-wrap"><span aria-hidden="true"><svg class="ui-icon"><use href="#icon-search"/></svg></span><span class="visually-hidden">Search ingredients</span><input id="ingredient-search" type="search" placeholder="Find an ingredient…" autocomplete="off"></label><div class="food-categories" id="ingredient-list" aria-label="Available ingredients"></div><div class="meal-list compact-meals" id="meal-list" aria-live="polite"></div><p class="data-note">Food ideas are ingredient matches, not clinical or nutrient advice. <a href="https://www.fao.org/3/i8835en/I8835EN.pdf" target="_blank" rel="noreferrer">FAO/INFOODS West African Food Composition Table</a> is a future data source; this prototype does not calculate food composition.</p></section>
+        </section>
+
+        <section class="page-view" id="workouts" data-view="workouts">
+          <div class="view-heading"><div><p class="eyebrow">TRAINING THAT FITS YOUR LIFE</p><h1>Workouts, <span>your way.</span></h1><p class="section-copy">Build a session, save a routine, or ask for a fresh suggestion. You’re always in control.</p></div></div>
+          <div class="workout-layout">
+            <div class="workout-main">
+              <section class="panel session-panel">
+                <div class="section-heading"><div><p class="eyebrow" id="session-eyebrow">QUICK TO START</p><h2 id="session-heading">Workout logger</h2></div><span class="live-status" id="draft-status">Ready when you are</span></div>
+                <div class="session-toolbar"><label class="field">Session name<input id="session-name" maxlength="60" value="My workout" placeholder="Name your session"></label><label class="field">Date<input id="session-date" type="date"></label></div>
+                <div class="session-controls"><button class="button button-primary" id="session-start" type="button">Start session</button><button class="button button-soft" id="session-pause" type="button" disabled>Pause</button><span class="session-clock" id="session-clock" aria-live="polite">00:00</span><button class="button button-soft" id="save-routine" type="button">Save as routine</button></div>
+                <div class="set-table-wrap"><table class="set-table"><thead><tr><th>Exercise</th><th>Set</th><th>Previous</th><th>Reps</th><th>Load</th><th>Time</th><th>Distance</th><th>Done</th><th></th></tr></thead><tbody id="session-exercises"></tbody></table></div>
+                <div id="session-empty" class="empty-state"><span>✳</span><strong>Your session starts here.</strong><span>Add an exercise or generate a plan to get moving.</span></div>
+                <div class="logger-actions"><button class="button button-soft" id="add-exercise-session" type="button">＋ Add exercise</button><button class="button button-soft" id="cancel-session" type="button" disabled>Cancel workout</button><button class="button button-primary" id="finish-session" type="button">Finish workout</button></div>
+                <label class="field notes-field">Session notes<textarea id="session-notes" rows="2" maxlength="1000" placeholder="How did it feel? Anything to remember next time?"></textarea></label>
+                <p class="form-status" id="session-status" aria-live="polite"></p>
+              </section>
+              <section class="panel rest-panel"><div class="section-heading"><div><p class="eyebrow">TAKE YOUR TIME</p><h2>Rest timer</h2></div><span class="heading-emoji">◷</span></div><div class="rest-controls"><label class="visually-hidden" for="rest-duration">Rest duration in seconds</label><select id="rest-duration"><option value="30">30 sec</option><option value="60" selected>60 sec</option><option value="90">90 sec</option><option value="120">2 min</option><option value="180">3 min</option></select><span id="rest-clock" class="rest-clock">01:00</span><button class="button button-primary" id="rest-start" type="button">Start rest</button><button class="button button-soft" id="rest-reset" type="button">Reset</button></div></section>
+            </div>
+            <aside class="workout-aside">
+              <section class="panel generator-panel"><div class="section-heading"><div><p class="eyebrow">A FRESH IDEA</p><h2>Build my session</h2></div><span class="heading-emoji">✦</span></div><p class="section-copy">Suggestions use your available equipment, session length, experience, exclusions, and recent sessions. You can change anything.</p><label class="field">Workout focus<select id="generator-focus"><option value="strength">Strength</option><option value="cardio">Cardio</option><option value="mobility">Mobility</option><option value="general">General fitness</option></select></label><button class="button button-primary full-width" id="generate-workout" type="button">Suggest a workout</button><p id="generator-explanation" class="recommendation-copy">Set your preferences in Profile for more tailored suggestions.</p><div id="generated-preview"></div></section>
+              <section class="panel"><div class="section-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2>Saved routines</h2></div><button class="button button-soft" id="new-routine" type="button">＋ New routine</button></div><div id="saved-routines"></div><form id="routine-form" class="routine-inline-form"><label class="visually-hidden" for="routine-name">New routine name</label><input id="routine-name" maxlength="60" placeholder="Name this routine" required><button class="button button-soft" type="submit">Save current</button></form></section>
+            </aside>
+          </div>
+        </section>
+
+        <dialog id="routine-editor-dialog" class="modal"><form id="routine-editor-form" method="dialog"><div class="section-heading"><div><p class="eyebrow">BUILD YOUR ROUTINE</p><h2 id="routine-editor-title">New routine</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close">×</button></div><label class="field">Routine name<input name="name" maxlength="60" required></label><label class="field">Training focus<select name="focus"><option value="strength">Strength</option><option value="cardio">Cardio</option><option value="mobility">Mobility</option><option value="general">General fitness</option></select></label><div class="routine-add-row"><label class="field">Add exercise<select id="routine-exercise-select"></select></label><button class="button button-soft" id="routine-add-exercise" type="button" disabled>Add</button></div><div id="routine-editor-exercises" class="routine-editor-exercises"></div><p class="form-status" id="routine-editor-status" aria-live="polite"></p><div class="dialog-actions"><button class="button button-soft" type="button" data-close-dialog>Cancel</button><button class="button button-primary" type="submit">Save routine</button></div></form></dialog>
+
+        <section class="page-view" id="exercises" data-view="exercises">
+          <div class="view-heading"><div><p class="eyebrow">A LIBRARY FOR YOUR PRACTICE</p><h1>Find your <span>next move.</span></h1><p class="section-copy">Explore clear instructions and practical alternatives. Add your own exercises any time.</p></div><button class="button button-primary" id="open-custom-exercise" type="button">＋ Custom exercise</button></div>
+          <section class="panel library-filters"><label class="search-wrap"><span>⌕</span><span class="visually-hidden">Search exercises</span><input id="exercise-search" type="search" placeholder="Search by exercise or muscle…"></label><label class="field">Type<select id="exercise-type-filter"><option value="all">All movement</option><option value="strength">Strength</option><option value="cardio">Cardio</option><option value="mobility">Mobility</option></select></label><label class="field">Equipment<select id="exercise-equipment-filter"><option value="all">Any equipment</option></select></label><label class="field">Difficulty<select id="exercise-level-filter"><option value="all">Any level</option><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label></section>
+          <p id="exercise-result-count" class="result-count" aria-live="polite"></p><div id="exercise-library" class="exercise-grid"></div>
+          <dialog id="custom-exercise-dialog" class="modal"><form id="custom-exercise-form" method="dialog"><div class="section-heading"><div><p class="eyebrow">MAKE IT YOURS</p><h2>Add an exercise</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close">×</button></div><label class="field">Exercise name<input name="name" required maxlength="60"></label><div class="form-grid"><label class="field">Movement<select name="type"><option value="strength">Strength</option><option value="cardio">Cardio</option><option value="mobility">Mobility</option></select></label><label class="field">Difficulty<select name="level"><option value="beginner">Beginner</option><option value="intermediate">Intermediate</option><option value="advanced">Advanced</option></select></label></div><label class="field">Muscle group<input name="muscles" maxlength="80" placeholder="e.g. legs, core"></label><label class="field">Equipment<input name="equipment" maxlength="60" placeholder="Bodyweight, dumbbell, band…"></label><label class="field">How to do it<textarea name="instructions" rows="3" required maxlength="500"></textarea></label><label class="field">Form and safety guidance<textarea name="safety" rows="2" maxlength="300" placeholder="Optional; general guidance is added if blank"></textarea></label><label class="field">Alternative<input name="alternative" maxlength="60" placeholder="Optional easier variation"></label><div class="dialog-actions"><button class="button button-soft" type="button" data-close-dialog>Cancel</button><button class="button button-primary" type="submit">Add exercise</button></div><p class="form-status" id="exercise-form-status" aria-live="polite"></p></form></dialog>
+        </section>
+
+        <section class="page-view" id="calendar" data-view="calendar">
+          <div class="view-heading"><div><p class="eyebrow">MAKE ROOM FOR MOVEMENT AND REST</p><h1>Your training <span>calendar.</span></h1><p class="section-copy">Schedule sessions, plan recovery, and move things around as life happens.</p></div></div>
+          <section class="panel calendar-panel"><div class="calendar-toolbar"><button class="icon-button" id="calendar-prev" type="button" aria-label="Previous week">←</button><h2 id="calendar-title">This week</h2><button class="icon-button" id="calendar-next" type="button" aria-label="Next week">→</button><button class="button button-soft" id="calendar-today" type="button">Today</button><div class="calendar-modes" role="group" aria-label="Calendar view"><button class="calendar-mode active" id="calendar-week-mode" type="button" aria-pressed="true">Week</button><button class="calendar-mode" id="calendar-month-mode" type="button" aria-pressed="false">Month</button></div></div><div class="calendar-grid" id="calendar-grid"></div></section>
+          <div class="dashboard-grid lower-grid calendar-extras"><section class="panel"><div class="section-heading"><div><p class="eyebrow">UP NEXT</p><h2>Your planned sessions</h2></div></div><div id="upcoming-sessions"></div></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">BUILT IN</p><h2>Rest days matter</h2></div><span class="heading-emoji">☾</span></div><p class="section-copy">Recovery is part of training. Reschedule a session, take a rest day, or skip a day without losing your progress.</p></section></div>
+        </section>
+
+        <section class="page-view" id="progress" data-view="progress">
+          <div class="view-heading"><div><p class="eyebrow">YOUR WORK, OVER TIME</p><h1>Progress that <span>feels like yours.</span></h1><p class="section-copy">A fuller picture than one number. Explore the patterns in your sessions.</p></div><label class="field range-field">Date range<select id="progress-range"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 12 months</option><option value="all">All time</option></select></label></div>
+          <div class="stat-grid progress-stats"><article class="stat-card"><span class="stat-icon green">↗</span><div><p class="stat-label">SESSIONS</p><strong id="progress-sessions">0</strong></div></article><article class="stat-card"><span class="stat-icon orange">◷</span><div><p class="stat-label">ACTIVE MINUTES</p><strong id="progress-minutes">0</strong></div></article><article class="stat-card"><span class="stat-icon purple">▦</span><div><p class="stat-label">ACTIVE DAYS</p><strong id="progress-days">0</strong></div></article><article class="stat-card"><span class="stat-icon orange">✓</span><div><p class="stat-label">SETS COMPLETED</p><strong id="progress-sets">0</strong></div></article></div>
+          <div class="dashboard-grid"><section class="panel"><div class="section-heading"><div><p class="eyebrow">SHOWING UP</p><h2>Training consistency</h2></div></div><div class="chart-area" id="consistency-chart" role="group" aria-label="Workout consistency chart"></div></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">TIME ON THE MOVE</p><h2>Active minutes</h2></div></div><div class="chart-area" id="minutes-chart" role="group" aria-label="Active minutes chart"></div></section></div>
+          <div class="dashboard-grid lower-grid"><section class="panel"><div class="section-heading"><div><p class="eyebrow">GETTING STRONGER</p><h2>Exercise progression</h2></div><label class="field compact-field"><span class="visually-hidden">Choose exercise for progression chart</span><select id="progress-exercise"></select></label></div><div class="chart-area progression-chart" id="progression-chart" role="group" aria-label="Exercise progression chart"></div><div id="exercise-history"></div></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">BEST EFFORTS</p><h2>Personal records</h2></div></div><div id="personal-records"></div></section></div>
+          <div class="dashboard-grid lower-grid"><section class="panel"><div class="section-heading"><div><p class="eyebrow">YOUR PATTERNS</p><h2>Personal insights</h2></div></div><div id="progress-insights"></div></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">HOW YOU MOVE</p><h2>Exercise categories</h2></div></div><div id="category-distribution"></div></section></div>
+          <section class="panel"><div class="section-heading"><div><p class="eyebrow">YOUR TRAINING STORY</p><h2>Session history</h2></div></div><div id="session-history"></div></section>
+        </section>
+
+        <section class="page-view" id="profile" data-view="profile">
+          <div class="view-heading"><div><p class="eyebrow">YOUR PLAN SHOULD FIT YOU</p><h1>Set your <span>preferences.</span></h1><p class="section-copy">Make this plan yours. Update it whenever your routine changes.</p></div></div>
+          <div class="profile-layout"><div class="profile-main">
+            <form id="profile-form" class="panel"><div class="section-heading"><div><p class="eyebrow">TRAINING PROFILE</p><h2>Your starting point</h2></div></div><div class="form-grid"><label class="field">Name <span class="unit">optional</span><input name="name" maxlength="40" placeholder="What should we call you?"></label><label class="field">Experience<select name="experience"><option value="beginner">New to training</option><option value="intermediate">Some experience</option><option value="advanced">Experienced</option></select></label><label class="field">Weight units<select name="units"><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label></div><fieldset class="choice-fieldset"><legend>What would you like to do?</legend><div id="interest-options" class="choice-grid"></div></fieldset><fieldset class="choice-fieldset"><legend>Equipment you can use</legend><p class="helper">Bodyweight is always available. Add equipment you actually have.</p><div id="equipment-options" class="choice-grid"></div></fieldset><fieldset class="choice-fieldset"><legend>Days that usually work for you</legend><div id="day-options" class="day-options"></div></fieldset><label class="field">Usual session length <span id="duration-label">30 min</span><input name="duration" type="range" min="15" max="90" step="5"></label><fieldset class="choice-fieldset"><legend>Exercises to leave out</legend><div id="exclusion-options" class="choice-grid"></div></fieldset><button class="button button-primary" type="submit">Save preferences</button><p class="form-status" id="profile-status" aria-live="polite"></p></form>
+            <section class="panel"><div class="section-heading"><div><p class="eyebrow">A GENTLE CHECK-IN</p><h2>How are you feeling?</h2></div><span class="heading-emoji">♡</span></div><p class="section-copy">Optional notes for your own reflection. These do not diagnose or predict recovery.</p><form id="checkin-form"><div class="form-grid"><label class="field">Energy <select name="energy"><option value="">Skip</option><option value="1">1 · low</option><option value="2">2 · a little low</option><option value="3">3 · okay</option><option value="4">4 · good</option><option value="5">5 · great</option></select></label><label class="field">Soreness <select name="soreness"><option value="">Skip</option><option value="1">1 · none</option><option value="2">2 · mild</option><option value="3">3 · noticeable</option><option value="4">4 · strong</option><option value="5">5 · very strong</option></select></label><label class="field">Sleep last night <select name="sleep"><option value="">Skip</option><option value="1">1 · not much</option><option value="2">2 · below usual</option><option value="3">3 · okay</option><option value="4">4 · good</option><option value="5">5 · restful</option></select></label></div><label class="field">Note <textarea name="notes" maxlength="300" rows="2" placeholder="Anything you'd like to remember?"></textarea></label><button class="button button-soft" type="submit">Save today's check-in</button><p class="form-status" id="checkin-status" aria-live="polite"></p></form></section>
+          </div><aside class="profile-side"><section class="panel"><div class="section-heading"><div><p class="eyebrow">JUST FOR YOU</p><h2>Reminders</h2></div></div><label class="toggle-row"><span><strong>Daily nudge</strong><small>Only while this page is open and notifications are allowed.</small></span><input id="reminder-toggle" type="checkbox"></label><p class="form-status" id="reminder-status" aria-live="polite"></p></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">YOUR INFORMATION</p><h2>Privacy & data</h2></div></div><p class="section-copy">Training data is stored on this device in browser storage. It does not sync to another device or account. Export a backup before changing browsers or clearing site data.</p><div class="data-actions"><button class="button button-soft" id="export-json" type="button">Export JSON</button><button class="button button-soft" id="export-csv" type="button">Export sessions CSV</button><label class="button button-soft import-button" for="import-json">Import backup<input class="visually-hidden" id="import-json" type="file" accept="application/json,.json"></label><button class="button button-danger" id="delete-data" type="button">Delete all local data</button></div><p class="form-status" id="data-status" aria-live="polite"></p></section><section class="panel"><div class="section-heading"><div><p class="eyebrow">CURRENT BOUNDARIES</p><h2>What this app is not</h2></div></div><p class="section-copy">Workout suggestions are transparent, simple rules—not a clinical plan or prediction of recovery. Adjust exercises, choose rest, and consult a qualified professional if you need medical guidance.</p></section></aside></div>
+        </section>
+
+        <footer class="page-footer">KARFIVO <span>•</span> Strength in Motion <span>•</span> Your data stays on this device <p id="app-install-status" role="status">Free to use. No account, subscription, or payment required.</p></footer>
+      </main>
+      <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-nav="home"><svg class="ui-icon"><use href="#icon-home"/></svg><small>Home</small></a><a href="#workouts" data-nav="workouts"><svg class="ui-icon"><use href="#icon-dumbbell"/></svg><small>Workouts</small></a><a href="#exercises" data-nav="exercises"><svg class="ui-icon"><use href="#icon-grid"/></svg><small>Exercises</small></a><a href="#calendar" data-nav="calendar"><svg class="ui-icon"><use href="#icon-calendar"/></svg><small>Calendar</small></a><a href="#progress" data-nav="progress"><svg class="ui-icon"><use href="#icon-chart"/></svg><small>Progress</small></a><a href="#profile" data-nav="profile"><svg class="ui-icon"><use href="#icon-settings"/></svg><small>Profile</small></a></nav>
+    </div>
+  </div>
+  <dialog id="session-exercise-dialog" class="modal"><div><div class="section-heading"><div><p class="eyebrow">ADD TO YOUR SESSION</p><h2>Choose an exercise</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close">×</button></div><label class="search-wrap"><span>⌕</span><span class="visually-hidden">Search exercises to add</span><input id="session-exercise-search" type="search" placeholder="Find an exercise…"></label><div id="session-exercise-options" class="dialog-exercise-list"></div></div></dialog>
+  <dialog id="schedule-dialog" class="modal"><form id="schedule-form"><div class="section-heading"><div><p class="eyebrow">MAKE A PLAN</p><h2 id="schedule-heading">Schedule a day</h2></div><button class="icon-button" type="button" data-close-dialog aria-label="Close">×</button></div><label class="field">Scheduled date<input name="date" type="date" required></label><label class="field">Plan<select name="kind"><option value="workout">Workout</option><option value="rest">Rest day</option></select></label><label class="field">Routine<select name="routine" id="schedule-routine"></select></label><div class="dialog-actions"><button class="button button-danger" id="schedule-delete" type="button" hidden>Remove plan</button><button class="button button-soft" type="button" data-close-dialog>Cancel</button><button class="button button-primary" type="submit">Save plan</button></div></form></dialog>
+</body>
+</html>
